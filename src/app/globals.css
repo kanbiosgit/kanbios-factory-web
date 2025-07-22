@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+@theme {
+    /* Colors - Palette unifiée Kanbios Factory */
+    --color-kanbios-blue: #0066FF;
+    --color-kanbios-accent: #00D4FF;
+    --color-kanbios-blue-dark: #0052CC;
+    --color-kanbios-accent-dark: #00A8CC;
+
+    /* Neutral colors */
+    --color-slate-50: #f8fafc;
+    --color-slate-100: #f1f5f9;
+    --color-slate-200: #e2e8f0;
+    --color-slate-600: #475569;
+    --color-slate-700: #334155;
+    --color-slate-800: #1e293b;
+    --color-slate-900: #0f172a;
+    --color-slate-950: #020617;
+
+    /* Gradients unifiés */
+    --gradient-main: linear-gradient(135deg, #0066FF 0%, #00D4FF 100%);
+    --gradient-horizontal: linear-gradient(to right, #0066FF, #00D4FF);
+    --gradient-subtle: linear-gradient(to right, rgba(0,102,255,0.1), rgba(0,212,255,0.1));
+    --gradient-dark: linear-gradient(135deg, #0a0e27 0%, #0a1628 50%, #0a0e27 100%);
+    --gradient-section: linear-gradient(to bottom right, #0f172a, #0a1628);
+
+    /* Spacing */
+    --spacing-section: 5rem;
+    --spacing-container: 1.5rem;
+
+    /* Border Radius */
+    --radius-card: 1rem;
+    --radius-button: 0.5rem;
+    --radius-badge: 9999px;
+
+    /* Shadows unifiées */
+    --shadow-card: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    --shadow-card-hover: 0 30px 40px -10px rgb(0 102 255 / 0.2);
+    --shadow-button: 0 10px 25px -5px rgb(0 102 255 / 0.25);
+    --shadow-glow-blue: 0 0 20px rgba(0,102,255,0.5);
+    --shadow-glow-cyan: 0 0 20px rgba(0,212,255,0.5);
+
+    /* Animations */
+    --animate-fade-in: fadeIn 0.6s ease-out;
+    --animate-slide-in: slideIn 0.5s ease-out;
+    --animate-slide-up: slideUp 0.5s ease-out;
+    --animate-float: float 6s ease-in-out infinite;
+    --animate-pulse-blue: pulseBlue 2s ease-in-out infinite;
+    --animate-gradient: gradient 8s ease infinite;
+}
+
+/* Keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes pulseBlue {
+    0%, 100% {
+        opacity: 0.3;
+        box-shadow: 0 0 0 0 rgba(0,102,255,0.7);
+    }
+    50% {
+        opacity: 0.6;
+        box-shadow: 0 0 0 10px rgba(0,102,255,0);
+    }
+}
+
+@keyframes gradient {
+    0%, 100% {
+        background-size: 200% 200%;
+        background-position: left center;
+    }
+    50% {
+        background-size: 200% 200%;
+        background-position: right center;
+    }
+}
+
+/* Custom component classes using the theme variables */
+@layer components {
+    /* Buttons unifiés */
+    .btn-primary {
+        @apply px-6 py-3 font-semibold text-white rounded-lg
+        bg-gradient-to-r from-[--color-kanbios-blue] to-[--color-kanbios-accent]
+        hover:from-[--color-kanbios-blue-dark] hover:to-[--color-kanbios-accent-dark]
+        transform transition-all duration-300 hover:scale-105;
+        box-shadow: var(--shadow-button);
+    }
+
+    .btn-secondary {
+        @apply px-6 py-3 font-semibold rounded-lg
+        bg-white text-[--color-kanbios-blue] border-2 border-[--color-kanbios-blue]
+        hover:bg-blue-50 transition-all duration-300;
+    }
+
+    .btn-ghost {
+        @apply px-6 py-3 font-semibold rounded-lg
+        text-white border-2 border-white/20 backdrop-blur-sm
+        hover:bg-white hover:text-[--color-kanbios-blue]
+        transition-all duration-300;
+    }
+
+    /* Cards unifiées */
+    .card-dark {
+        @apply p-8 rounded-[--radius-card] transition-all duration-300
+        bg-slate-800/50 backdrop-blur-sm border border-slate-700
+        hover:border-[--color-kanbios-blue]/50;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-dark::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-horizontal);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .card-dark:hover::before {
+        opacity: 1;
+    }
+
+    .card-light {
+        @apply p-8 rounded-[--radius-card] transition-all duration-300
+        bg-white border border-slate-200
+        hover:border-[--color-kanbios-blue]/30 hover:shadow-[--shadow-card-hover];
+    }
+
+    /* Card offer refactorisée avec nouvelle identité */
+    .card-offer {
+        @apply relative p-8 rounded-[--radius-card] text-white
+        bg-slate-800/50 backdrop-blur-sm border border-slate-700
+        hover:border-[--color-kanbios-blue]/50
+        hover:shadow-[--shadow-card-hover] hover:-translate-y-1
+        transition-all duration-300 overflow-hidden;
+    }
+
+    /* Gradients */
+    .gradient-main {
+        background: var(--gradient-main);
+    }
+
+    .gradient-text {
+        @apply bg-gradient-to-r from-[--color-kanbios-blue] to-[--color-kanbios-accent];
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    /* Badges unifiés */
+    .badge-kanbios {
+        @apply inline-flex items-center px-3 py-1 rounded-[--radius-badge]
+        text-sm font-medium bg-blue-50 text-blue-700 border border-blue-200;
+    }
+
+    /* Sections */
+    .section-dark {
+        background: var(--gradient-section);
+    }
+
+    .section-light {
+        @apply bg-white;
+    }
+
+    .section-light-alt {
+        @apply bg-slate-50;
+    }
+
+    /* Hover glow effect */
+    .hover-glow {
+        position: relative;
+    }
+
+    .hover-glow::after {
+        content: '';
+        position: absolute;
+        inset: -8px;
+        background: var(--gradient-main);
+        border-radius: inherit;
+        opacity: 0;
+        filter: blur(20px);
+        transition: opacity 0.3s;
+        z-index: -1;
+    }
+
+    .hover-glow:hover::after {
+        opacity: 0.3;
+    }
+
+    /* Pattern backgrounds */
+    .pattern-grid {
+        background-image:
+                linear-gradient(rgba(0,102,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,102,255,0.05) 1px, transparent 1px);
+        background-size: 50px 50px;
+    }
+
+    .pattern-dots {
+        background-image: radial-gradient(circle, rgba(0,102,255,0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+}
+
+/* Utilities */
+@layer utilities {
+    /* Animations */
+    .animate-float {
+        animation: var(--animate-float);
+    }
+
+    .animate-pulse-blue {
+        animation: var(--animate-pulse-blue);
+    }
+
+    .animate-gradient {
+        animation: var(--animate-gradient);
+        background-size: 200% 200%;
+    }
+
+    /* Custom shadows */
+    .shadow-blue {
+        box-shadow: var(--shadow-glow-blue);
+    }
+
+    .shadow-cyan {
+        box-shadow: var(--shadow-glow-cyan);
+    }
+}
+
+/* Global styles */
+@layer base {
+    /* Scrollbar personnalisée */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-slate-900);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--gradient-horizontal);
+        border-radius: 5px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(to bottom, var(--color-kanbios-blue-dark), var(--color-kanbios-accent-dark));
+    }
+
+    /* Text selection */
+    ::selection {
+        background-color: rgba(0,212,255,0.3);
+        color: var(--color-kanbios-blue);
+    }
+
+    /* Focus styles */
+    *:focus {
+        outline: none;
+    }
+
+    *:focus-visible {
+        outline: 2px solid var(--color-kanbios-accent);
+        outline-offset: 2px;
+    }
+}
