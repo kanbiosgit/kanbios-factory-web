@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import { Rocket, Users, RefreshCw, ArrowRight } from 'lucide-react'
+import { motion } from "framer-motion";
+import { Rocket, Users, RefreshCw, ArrowRight } from "lucide-react";
 import {
     Container,
     Section,
@@ -10,60 +10,68 @@ import {
     Heading,
     Text,
     Button,
-    IconWrapper
-} from '@/design-system'
+    IconWrapper,
+} from "@/design-system";
 
 const offers = [
     {
         icon: Rocket,
         title: "Développement End-to-End",
         subtitle: "Du MVP au scale-up",
-        description: "Nous gérons tout : conception, développement, déploiement. Architecture moderne, tests automatisés, CI/CD inclus.",
+        description:
+            "Nous gérons tout : conception, développement, déploiement. Architecture moderne, tests automatisés, CI/CD inclus.",
         features: [
             "Lancement garanti en 3 mois",
             "Équipe senior dédiée",
-            "Maintenance incluse"
+            "Maintenance incluse",
         ],
         ctaText: "J'ai un projet",
-        ctaHref: "/offres/developpement"
+        ctaHref: "/offres/developpement",
     },
     {
         icon: Users,
         title: "Équipe Dédiée",
         subtitle: "Vos experts intégrés",
-        description: "Tech Lead, développeurs seniors et DevOps qui rejoignent vos équipes. Intégration dans vos process existants.",
+        description:
+            "Tech Lead, développeurs seniors et DevOps qui rejoignent vos équipes. Intégration dans vos process existants.",
         features: [
             "Opérationnels en 2 semaines",
             "Profils triés sur le volet",
-            "Flexibilité totale"
+            "Flexibilité totale",
         ],
         ctaText: "J'ai besoin d'experts",
-        ctaHref: "/offres/equipe"
+        ctaHref: "/offres/equipe",
     },
     {
         icon: RefreshCw,
         title: "Modernisation & Migration",
         subtitle: "Transformation sans risque",
-        description: "Audit de votre SI / migration progressive vers le cloud / Zéro interruption de service, formation incluse.",
+        description:
+            "Audit de votre SI / migration progressive vers le cloud / Zéro interruption de service, formation incluse.",
         features: [
             "Audit d'architecture complète",
             "Migration par phases",
-            "ROI garanti sous 6 mois"
+            "ROI garanti sous 6 mois",
         ],
         ctaText: "Je veux moderniser",
-        ctaHref: "/offres/modernisation"
-    }
-]
+        ctaHref: "/offres/modernisation",
+    },
+];
 
-function OfferCard({ offer, index }: { offer: typeof offers[0], index: number }) {
+function OfferCard({
+    offer,
+    index,
+}: {
+    offer: (typeof offers)[0];
+    index: number;
+}) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
-            className="h-full"
-        >
-            <Card variant="dark" hover className="h-full">
+            className="h-full">
+            <Card variant="dark" hover className="h-full flex flex-col">
                 {/* Icon with unified blue accent */}
                 <IconWrapper variant="primary" size="lg" className="mb-6">
                     <offer.icon className="h-7 w-7" />
@@ -81,32 +89,36 @@ function OfferCard({ offer, index }: { offer: typeof offers[0], index: number })
                     {offer.description}
                 </Text>
 
-                {/* Features with consistent styling */}
-                <div className="space-y-2 mb-8">
-                    {offer.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
-                            <Text size="sm" color="muted">
-                                {feature}
-                            </Text>
-                        </div>
-                    ))}
-                </div>
+                {/* Features with consistent styling - this div will grow to take available space */}
+                <div className="flex-1 flex flex-col">
+                    <div className="space-y-2 mb-8">
+                        {offer.features.map((feature, idx) => (
+                            <div key={idx} className="flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400" />
+                                <Text size="sm" color="muted">
+                                    {feature}
+                                </Text>
+                            </div>
+                        ))}
+                    </div>
 
-                <Button
-                    as="a"
-                    href={offer.ctaHref}
-                    variant="ghost"
-                    size="sm"
-                    fullWidth
-                    className="justify-center"
-                    icon={<ArrowRight className="h-4 w-4" />}
-                >
-                    {offer.ctaText}
-                </Button>
+                    {/* Push button to bottom with margin-top auto */}
+                    <div className="mt-auto">
+                        <Button
+                            as="a"
+                            href={offer.ctaHref}
+                            variant="ghost"
+                            size="sm"
+                            fullWidth
+                            className="justify-center"
+                            icon={<ArrowRight className="h-4 w-4" />}>
+                            {offer.ctaText}
+                        </Button>
+                    </div>
+                </div>
             </Card>
         </motion.div>
-    )
+    );
 }
 
 export default function Hero() {
@@ -114,14 +126,16 @@ export default function Hero() {
         <Section
             variant="dark"
             spacing="lg"
-            className="min-h-screen flex items-center relative overflow-hidden"
-        >
+            className="min-h-screen flex items-center relative overflow-hidden">
             {/* Animated background pattern */}
             <div className="absolute inset-0 opacity-20">
-                <div className="absolute inset-0" style={{
-                    backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0,102,255,0.2) 0%, transparent 50%),
-                                     radial-gradient(circle at 75% 75%, rgba(0,212,255,0.2) 0%, transparent 50%)`
-                }} />
+                <div
+                    className="absolute inset-0"
+                    style={{
+                        backgroundImage: `radial-gradient(circle at 25% 25%, rgba(0,102,255,0.2) 0%, transparent 50%),
+                                     radial-gradient(circle at 75% 75%, rgba(0,212,255,0.2) 0%, transparent 50%)`,
+                    }}
+                />
             </div>
 
             {/* Grid pattern overlay */}
@@ -156,14 +170,16 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-center mb-20"
-                >
-                    <Heading as="h1" level="h1" align="center" color="white" className="mb-6">
+                    className="text-center mb-20">
+                    <Heading
+                        as="h1"
+                        level="h1"
+                        align="center"
+                        color="white"
+                        className="mb-6 pt-20">
                         Du besoin à la mise en prod
                         <br />
-                        <span className="gradient-text">
-                            en 12 semaines
-                        </span>
+                        <span className="gradient-text">en 12 semaines</span>
                     </Heading>
 
                     <Text size="xl" color="primary" className="text-center">
@@ -174,7 +190,11 @@ export default function Hero() {
                 {/* Offers Grid */}
                 <Grid cols={3} gap="md" className="mb-16">
                     {offers.map((offer, index) => (
-                        <OfferCard key={offer.title} offer={offer} index={index} />
+                        <OfferCard
+                            key={offer.title}
+                            offer={offer}
+                            index={index}
+                        />
                     ))}
                 </Grid>
 
@@ -183,20 +203,18 @@ export default function Hero() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.8 }}
-                    className="text-center"
-                >
+                    className="text-center">
                     <Button
                         as="a"
                         href="/contact"
                         variant="primary"
                         size="lg"
                         icon={<ArrowRight className="h-5 w-5" />}
-                        className="hover-glow"
-                    >
+                        className="hover-glow">
                         Parlons de votre projet
                     </Button>
                 </motion.div>
             </Container>
         </Section>
-    )
+    );
 }
