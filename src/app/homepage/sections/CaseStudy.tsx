@@ -1,16 +1,12 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import { ArrowRight, TrendingUp, Users, Zap } from 'lucide-react'
-import { Container, Section, Grid, Card, Heading, Text, Badge, Link, Icon } from '@/design-system'
+import { Container, Section, Grid, Card, Heading, Text, Badge, Link, Icon, Button } from '@/design-system'
+import { FadeIn, SlideIn, StaggerChildren, StaggerItem } from '@/components/common/AnimationWrapper'
 
 const caseStudies = [
     {
         id: 1,
         client: 'FinanceFlow',
         industry: 'FinTech',
-        thumbnail: '/api/placeholder/600/400',
-        logo: '/api/placeholder/120/40',
         challenge: 'Moderniser une application bancaire legacy tout en maintenant la conformité réglementaire.',
         solution: 'Migration progressive vers une architecture microservices avec React et Node.js.',
         results: [
@@ -29,8 +25,6 @@ const caseStudies = [
         id: 2,
         client: 'MediCare Plus',
         industry: 'HealthTech',
-        thumbnail: '/api/placeholder/600/400',
-        logo: '/api/placeholder/120/40',
         challenge: 'Créer une plateforme de télémédecine scalable et sécurisée en 3 mois.',
         solution: 'Développement d\'une PWA avec vidéo en temps réel et chiffrement end-to-end.',
         results: [
@@ -49,8 +43,6 @@ const caseStudies = [
         id: 3,
         client: 'EcoCommerce',
         industry: 'E-commerce',
-        thumbnail: '/api/placeholder/600/400',
-        logo: '/api/placeholder/120/40',
         challenge: 'Refondre entièrement une marketplace avec 100K+ produits sans interruption.',
         solution: 'Migration progressive avec feature flags et architecture headless commerce.',
         results: [
@@ -69,16 +61,10 @@ const caseStudies = [
 
 function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: number }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-            viewport={{ once: true }}
-            className="h-full"
-        >
-            <Card variant="default" hover className="h-full">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-6">
+        <SlideIn direction="up" transition={{ duration: 0.5, delay: index * 0.1 }}>
+            <Card variant="default" hover className="h-full flex flex-col">
+                {/* Header - Fixed height */}
+                <div className="flex items-center justify-between mb-6 h-8">
                     <Badge variant="primary">
                         {study.industry}
                     </Badge>
@@ -87,9 +73,10 @@ function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: 
                     </Text>
                 </div>
 
-                {/* Content */}
-                <div className="flex-grow">
-                    <div className="mb-4">
+                {/* Content - Flex grow with consistent subsection heights */}
+                <div className="flex-grow flex flex-col">
+                    {/* Challenge - Fixed min-height */}
+                    <div className="mb-4 min-h-[80px]">
                         <Text size="sm" weight="semibold" color="blue" className="mb-2">
                             Défi
                         </Text>
@@ -98,7 +85,8 @@ function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: 
                         </Text>
                     </div>
 
-                    <div className="mb-6">
+                    {/* Solution - Fixed min-height */}
+                    <div className="mb-6 min-h-[80px]">
                         <Text size="sm" weight="semibold" color="blue" className="mb-2">
                             Solution
                         </Text>
@@ -107,13 +95,16 @@ function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: 
                         </Text>
                     </div>
 
-                    {/* Results - Unified style */}
-                    <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                    {/* Results - Fixed height */}
+                    <div className="grid grid-cols-3 gap-4 mb-6 p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl h-[120px]">
                         {study.results.map((result, idx) => (
-                            <div key={idx} className="text-center">
-                                <Icon color="primary" size="sm">
-                                    <result.icon className="mx-auto mb-1" />
-                                </Icon>
+                            <div key={idx} className="text-center flex flex-col justify-center">
+                                <div>
+                                    <Icon color="primary" size="sm">
+                                        <result.icon className="mx-auto mb-1" />
+                                    </Icon>
+                                </div>
+
                                 <Text weight="bold" color="dark">
                                     {result.metric}
                                 </Text>
@@ -124,12 +115,12 @@ function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: 
                         ))}
                     </div>
 
-                    {/* Technologies - Unified style */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    {/* Technologies - Fixed height */}
+                    <div className="flex flex-wrap gap-2 mb-6 min-h-[60px]">
                         {study.technologies.map((tech) => (
                             <span
                                 key={tech}
-                                className="text-xs px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200"
+                                className="text-xs px-3 py-1 bg-slate-100 text-slate-700 rounded-full border border-slate-200 h-fit"
                             >
                                 {tech}
                             </span>
@@ -137,12 +128,12 @@ function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: 
                     </div>
                 </div>
 
-                {/* Testimonial */}
+                {/* Testimonial - Always at bottom, fixed structure */}
                 <div className="mt-auto pt-6 border-t border-slate-200">
-                    <Text size="sm" color="slate-600" className="italic mb-3">
+                    <Text size="sm" color="slate-600" className="italic mb-3 min-h-[48px]">
                         "{study.testimonial.quote}"
                     </Text>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between min-h-[48px]">
                         <div>
                             <Text size="sm" weight="semibold" color="dark">
                                 {study.testimonial.author}
@@ -161,7 +152,7 @@ function CaseStudyCard({ study, index }: { study: typeof caseStudies[0], index: 
                     </div>
                 </div>
             </Card>
-        </motion.div>
+        </SlideIn>
     )
 }
 
@@ -169,13 +160,7 @@ export default function CaseStudiesSection() {
     return (
         <Section variant="light">
             <Container size="xl">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
+                <FadeIn className="text-center mb-16">
                     <Badge variant="primary" size="lg" className="mb-6">
                         Réalisations
                     </Badge>
@@ -186,30 +171,29 @@ export default function CaseStudiesSection() {
                         Découvrez comment nous avons aidé nos clients à transformer leurs défis techniques
                         en avantages compétitifs.
                     </Text>
-                </motion.div>
+                </FadeIn>
 
-                <Grid cols={3} gap="lg" className="mb-12">
-                    {caseStudies.map((study, index) => (
-                        <CaseStudyCard key={study.id} study={study} index={index} />
-                    ))}
-                </Grid>
+                <StaggerChildren>
+                    <Grid cols={3} gap="lg" className="mb-12">
+                        {caseStudies.map((study, index) => (
+                            <StaggerItem key={study.id}>
+                                <CaseStudyCard study={study} index={index} />
+                            </StaggerItem>
+                        ))}
+                    </Grid>
+                </StaggerChildren>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center"
-                >
-                    <Link
+                <FadeIn className="text-center">
+                    <Button
+                        as="a"
                         href="/factory/cas-clients"
-                        variant="gradient"
-                        showArrow
-                        className="text-lg"
+                        variant="primary"
+                        size="lg"
+                        icon={<ArrowRight className="h-5 w-5" />}
                     >
                         Voir toutes nos réalisations
-                    </Link>
-                </motion.div>
+                    </Button>
+                </FadeIn>
             </Container>
         </Section>
     )

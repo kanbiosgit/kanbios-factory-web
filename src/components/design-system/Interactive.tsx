@@ -137,7 +137,7 @@ export function Link({
         <NextLink
             href={href}
             className={cn(
-                "inline-flex font-semibold transition-colors group underline decoration-2 underline-offset-4",
+                "inline-flex font-semibold transition-colors group underline decoration-2 underline-offset-4 items-center",
                 variants[variant],
                 className
             )}

@@ -1,10 +1,10 @@
-import Hero from '@/components/homepage/Hero'
-import MetricsSection from '@/components/homepage/Metrics'
-import Process from '@/components/homepage/Process'
-import CaseStudiesSection from "@/components/homepage/CaseStudy";
-import FAQSection from "@/components/homepage/FAQ";
-import CTASection from "@/components/homepage/CTA";
-import TechnologiesSection from "@/components/homepage/Technologies";
+import Hero from '@/app/homepage/sections/Hero'
+import MetricsSection from '@/app/homepage/sections/Metrics'
+import Process from '@/app/homepage/sections/Process'
+import CaseStudiesSection from "@/app/homepage/sections/CaseStudy";
+import FAQSection from "@/app/homepage/sections/FAQ";
+import CTASection from "@/app/homepage/sections/CTA";
+import TechnologiesSection from "@/app/homepage/sections/Technologies";
 
 
 export default function Home() {

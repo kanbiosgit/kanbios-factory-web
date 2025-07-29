@@ -1,8 +1,6 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import { Container, Section, Heading, Text, Badge, Card, IconWrapper, Progress } from '@/design-system'
 import { Palette, Code, Shield, Zap, Globe, Microscope, Check, Activity, RefreshCw, ShieldCheck } from 'lucide-react'
+import { FadeIn, ScaleIn, StaggerChildren, StaggerItem } from '@/components/common/AnimationWrapper'
 
 const techCategories = [
     {
@@ -90,86 +88,70 @@ function ExpertiseLevel({ level }: { level: number }) {
 
 export default function TechnologiesSection() {
     return (
-        <Section variant="dark" className="relative overflow-hidden">
+        <Section variant="dark" className="relative overflow-hidden" id="technologies" aria-labelledby="tech-title">
             {/* Background pattern */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 opacity-10" style={{
                     backgroundImage: `radial-gradient(circle at 20% 80%, rgba(0,102,255,0.3) 0%, transparent 50%),
                                      radial-gradient(circle at 80% 20%, rgba(0,212,255,0.3) 0%, transparent 50%),
                                      radial-gradient(circle at 40% 40%, rgba(0,158,255,0.2) 0%, transparent 50%)`
-                }} />
+                }} aria-hidden="true" />
             </div>
 
             <Container size="xl" className="relative z-10">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
+                <FadeIn className="text-center mb-16">
                     <Badge variant="secondary" size="lg" className="mb-6">
                         Stack Technique
                     </Badge>
-                    <Heading as="h2" level="h2" color="white" align="center" className="mb-4">
-                        Technologies de pointe pour des solutions durables
-                    </Heading>
+                    <div id="tech-title">
+                        <Heading as="h2" level="h2" color="white" align="center" className="mb-4">
+                            Technologies de pointe pour des solutions durables
+                        </Heading>
+                    </div>
                     <Text size="lg" color="secondary" className="max-w-2xl mx-auto">
                         Nous maîtrisons les technologies les plus modernes pour garantir
                         performance, scalabilité et maintenabilité.
                     </Text>
-                </motion.div>
+                </FadeIn>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-                    {techCategories.map((category, categoryIndex) => (
-                        <motion.div
-                            key={category.title}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
-                            viewport={{ once: true }}
-                        >
-                            <Card variant="dark" hover className="h-full">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <IconWrapper variant="primary" size="md">
-                                        <category.icon className="h-6 w-6" />
-                                    </IconWrapper>
-                                    <Heading level="h3" color="white">
-                                        {category.title}
-                                    </Heading>
-                                </div>
+                <StaggerChildren>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                        {techCategories.map((category, categoryIndex) => (
+                            <StaggerItem key={category.title}>
+                                <Card variant="dark" hover className="h-full">
+                                    <div className="flex items-center gap-4 mb-6">
+                                        <IconWrapper variant="primary" size="md">
+                                            <category.icon className="h-6 w-6" aria-label={category.title} />
+                                        </IconWrapper>
+                                        <Heading level="h3" color="white">
+                                            {category.title}
+                                        </Heading>
+                                    </div>
 
-                                <div className="space-y-3">
-                                    {category.technologies.map((tech, techIndex) => (
-                                        <motion.div
-                                            key={tech.name}
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            transition={{ duration: 0.3, delay: techIndex * 0.05 }}
-                                            viewport={{ once: true }}
-                                            className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/30 transition-colors"
-                                        >
-                                            <Text weight="medium" color="secondary">
-                                                {tech.name}
-                                            </Text>
-                                            <ExpertiseLevel level={tech.level} />
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </Card>
-                        </motion.div>
-                    ))}
-                </div>
+                                    <div className="space-y-3">
+                                        {category.technologies.map((tech, techIndex) => (
+                                            <FadeIn
+                                                key={tech.name}
+                                                transition={{ duration: 0.3, delay: techIndex * 0.05 }}
+                                                className="flex items-center justify-between p-2 rounded-lg hover:bg-slate-700/30 transition-colors"
+                                            >
+                                                <Text weight="medium" color="secondary">
+                                                    {tech.name}
+                                                </Text>
+                                                <ExpertiseLevel level={tech.level} />
+                                            </FadeIn>
+                                        ))}
+                                    </div>
+                                </Card>
+                            </StaggerItem>
+                        ))}
+                    </div>
+                </StaggerChildren>
 
-                {/* Tech Philosophy - Unified style */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                >
+                {/* Tech Philosophy */}
+                <FadeIn>
                     <Card variant="glass" className="text-center p-8">
-                        <Heading level="h3" color="white" className="mb-8">
+                        <Heading level="h3" color="white" className="mb-8" align="center">
                             Notre approche technique
                         </Heading>
                         <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
@@ -179,16 +161,13 @@ export default function TechnologiesSection() {
                                 { icon: RefreshCw, title: 'Évolutivité', desc: 'Architecture scalable' },
                                 { icon: ShieldCheck, title: 'Sécurité', desc: 'Protection maximale' }
                             ].map((item, index) => (
-                                <motion.div
+                                <ScaleIn
                                     key={item.title}
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
                                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                                    viewport={{ once: true }}
                                     className="group cursor-default"
                                 >
                                     <IconWrapper variant="glass" size="lg" className="mx-auto mb-3">
-                                        <item.icon className="h-7 w-7" />
+                                        <item.icon className="h-7 w-7" aria-label={item.title} />
                                     </IconWrapper>
                                     <Text weight="semibold" color="white" className="mb-1">
                                         {item.title}
@@ -196,31 +175,25 @@ export default function TechnologiesSection() {
                                     <Text size="sm" color="secondary">
                                         {item.desc}
                                     </Text>
-                                </motion.div>
+                                </ScaleIn>
                             ))}
                         </div>
                     </Card>
-                </motion.div>
+                </FadeIn>
 
-                {/* Special expertise - Unified badges */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                    viewport={{ once: true }}
-                    className="mt-12 text-center"
-                >
+                {/* Special expertise */}
+                <FadeIn className="mt-12 text-center">
                     <div className="inline-flex flex-col sm:flex-row items-center gap-4">
                         <Badge variant="secondary" className="flex items-center gap-2">
-                            <Globe className="h-4 w-4" />
+                            <Globe className="h-4 w-4" aria-hidden="true" />
                             Experts certifiés Strapi, WordPress & Webflow
                         </Badge>
                         <Badge variant="secondary" className="flex items-center gap-2">
-                            <Microscope className="h-4 w-4" />
+                            <Microscope className="h-4 w-4" aria-hidden="true" />
                             Audits techniques pour CTO & investisseurs
                         </Badge>
                     </div>
-                </motion.div>
+                </FadeIn>
             </Container>
         </Section>
     )

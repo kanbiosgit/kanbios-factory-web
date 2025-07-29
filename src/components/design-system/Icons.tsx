@@ -1,5 +1,5 @@
-import { Check, X, AlertCircle, Info } from "lucide-react";
-import { cn } from "@/lib/utils";
+import {Check, X, AlertCircle, Info} from "lucide-react";
+import {cn} from "@/lib/utils";
 
 interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
     size?: "sm" | "md" | "lg";
@@ -13,12 +13,12 @@ interface IconProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 
 export function Icon({
-    size = "md",
-    color = "default",
-    className,
-    children,
-    ...props
-}: IconProps) {
+                         size = "md",
+                         color = "default",
+                         className,
+                         children,
+                         ...props
+                     }: IconProps) {
     const sizes = {
         sm: "h-4 w-4",
         md: "h-5 w-5",
@@ -43,45 +43,45 @@ export function Icon({
 
 // Specific icon components
 export function CheckIcon({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLSpanElement>) {
+                              className,
+                              ...props
+                          }: React.HTMLAttributes<HTMLSpanElement>) {
     return (
-        <Icon color="success" className={cn("mr-2", className)} {...props}>
-            <Check aria-label="validé" />
+        <Icon color="success" className={cn("", className)} {...props}>
+            <Check className="h-full w-full" aria-label="validé"/>
         </Icon>
     );
 }
 
 export function ErrorIcon({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLSpanElement>) {
+                              className,
+                              ...props
+                          }: React.HTMLAttributes<HTMLSpanElement>) {
     return (
-        <Icon color="error" className={cn("mr-2", className)} {...props}>
-            <X aria-label="erreur" />
+        <Icon color="error" className={cn("", className)} {...props}>
+            <X className="h-full w-full" aria-label="erreur"/>
         </Icon>
     );
 }
 
 export function WarningIcon({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLSpanElement>) {
+                                className,
+                                ...props
+                            }: React.HTMLAttributes<HTMLSpanElement>) {
     return (
-        <Icon color="warning" className={cn("mr-2", className)} {...props}>
-            <AlertCircle aria-label="attention" />
+        <Icon color="warning" className={cn("", className)} {...props}>
+            <AlertCircle className="h-full w-full" aria-label="attention"/>
         </Icon>
     );
 }
 
 export function InfoIcon({
-    className,
-    ...props
-}: React.HTMLAttributes<HTMLSpanElement>) {
+                             className,
+                             ...props
+                         }: React.HTMLAttributes<HTMLSpanElement>) {
     return (
-        <Icon color="primary" className={cn("mr-2", className)} {...props}>
-            <Info aria-label="information" />
+        <Icon color="primary" className={cn("", className)} {...props}>
+            <Info className="h-full w-full" aria-label="information"/>
         </Icon>
     );
 }
@@ -94,13 +94,13 @@ interface IconWrapperProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export function IconWrapper({
-    variant = "default",
-    size = "md",
-    shape = "rounded",
-    className,
-    children,
-    ...props
-}: IconWrapperProps) {
+                                variant = "default",
+                                size = "md",
+                                shape = "rounded",
+                                className,
+                                children,
+                                ...props
+                            }: IconWrapperProps) {
     const sizes = {
         sm: "w-10 h-10",
         md: "w-12 h-12",
@@ -123,7 +123,7 @@ export function IconWrapper({
     return (
         <div
             className={cn(
-                "flex items-center justify-center transition-all duration-300",
+                "flex items-center justify-center transition-all duration-300 aspect-square",
                 sizes[size],
                 shapes[shape],
                 variants[variant],
